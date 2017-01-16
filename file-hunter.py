@@ -1,7 +1,6 @@
 # Authors: Bish0pQ, Inori
 # Website: http://www.bish0pq.pw
 # Proud member of Sinister.ly (IDE)
-# Proud member of Criminal.cat
 
 from urllib2 import URLError,HTTPError,urlopen	# downloading functionality + error classes
 from string import ascii_lowercase,digits	# strings with loweralpha + digit charsets
