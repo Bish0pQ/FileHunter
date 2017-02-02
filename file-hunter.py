@@ -2,7 +2,7 @@
 # Website: http://www.bish0pq.pw
 # Proud member of Sinister.ly (IDE)
 
-from urllib2 import URLError,HTTPError,urlopen	# downloading functionality + error classes
+from urllib2 import URLError,HTTPError,urlopen, ProxyHandler,build_opener,install_opener	# downloading functionality + error classes + proxy handler
 from string import ascii_lowercase,digits	# strings with loweralpha + digit charsets
 from argparse import ArgumentParser		# CLI argument parser
 from random import choice			# random element selector
@@ -14,7 +14,7 @@ successes=0			# number of successful downloads
 # create a parser instance
 parser=ArgumentParser(
 	description="Hunt for files on hosting sites like pomf",
-	usage="file-hunter.py [--help] [--verbose] [--ext ex] [--results n] [--length n] url"
+	usage="file-hunter.py [--help] [--verbose] [--ext ex] [--results n] [--length n] [--proxy str] url"
 )
 
 # Add arguments to the parser
@@ -22,6 +22,7 @@ parser.add_argument('-v','--verbose',action="store_true",help='enable verbose lo
 parser.add_argument('-e','--ext',metavar='ex',default='zip',help='extension to look for (no .)')
 parser.add_argument('-r','--results',metavar='n',type=int,default=5,help='number of results to print')
 parser.add_argument('-l','--length',metavar='n',type=int,default=6,help='length of file names')
+parser.add_argument('-p', '--proxy', metavar='ex', type=str, default='none',help='HTTP proxy to use in IP:PORT format withouth HTTP')
 parser.add_argument('url',action="store",help='url of the search target')
 
 # get arguments
@@ -46,9 +47,17 @@ def create_req(url):
 
 	full_path=args.url+'/'+url+'.'+args.ext	# full path of the link
 	try:	
-		f=urlopen(full_path)			# attempt to download the file
-		print("[+] downloading '%s'"%full_path)	# print a message
-		successes+=1
+		if args.proxy == 'none':
+			f=urlopen(full_path) #Attempt to download the file
+			print("[+] downloading '%s'"%full_path)	# print a message
+			successes += 1
+		else:
+			proxy_support = ProxyHandler({"http":"http://" + args.proxy})	#Add the proxy
+			builder = build_opener(proxy_support)
+			install_opener(builder) #Install the builder
+			f=urlopen(full_path)			# attempt to download the file
+			print("[+] downloading '%s'"%full_path)	# print a message
+			successes+=1
 
 		with open(url+'.'+args.ext,'w') as file:
 			file.write(f.read())	# write the file locally
@@ -68,3 +77,4 @@ while successes<args.results:
 		create_req(generate_url())
 	except KeyboardInterrupt:
 		print("successfully downloaded %d/%d files; quitting"%(successes,args.results))
+		quit()
