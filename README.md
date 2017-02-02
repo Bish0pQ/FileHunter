@@ -30,4 +30,3 @@ The following default arguments are currently in place:
 > `--ext` : `zip`  
 > `--results` : `5`  
 > `--length` : `6`
-> `--proxy` : `none`
