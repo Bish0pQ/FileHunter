@@ -1,5 +1,6 @@
 # FileHunter
-A program that hunts target hosting websites ([pomf](https://pomf.sinister.ly), [imgur](https://imgur.com), etc...) for files
+A program that hunts target hosting websites ([pomf](https://pomf.sinister.ly), [imgur](https://imgur.com), etc...) for files.
+Please beware that this might download infected files, please always upload to VirusTotal or Malwr.
 
 ### Usage
 _Outlined in `--help`_  
