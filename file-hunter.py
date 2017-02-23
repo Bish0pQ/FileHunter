@@ -26,7 +26,7 @@ parser=ArgumentParser(
 # Add arguments to the parser
 parser.add_argument('-v','--verbose',action="store_true",help='enable verbose logging')
 parser.add_argument('-e','--ext',metavar='ex',default='zip',help='extension to look for (no .)')
-parser.add_argument('-r','--results',metavar='n',type=int,default=5,help='number of results to print')
+parser.add_argument('-r','--results',metavar='n',type=int,default=5,help='number of results to download')
 parser.add_argument('-l','--length',metavar='n',type=int,default=6,help='length of file names')
 parser.add_argument('-p', '--proxy',metavar='adr',help='proxy to use in IP:PORT format')
 parser.add_argument('-s', '--ssl',action="store_true",help='use SSL for proxies')
